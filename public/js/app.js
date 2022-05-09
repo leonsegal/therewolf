@@ -5504,6 +5504,77 @@ function VerifyEmail(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/Pages/ChatForm.js":
+/*!****************************************!*\
+  !*** ./resources/js/Pages/ChatForm.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+function ChatForm(_ref) {
+  var socket = _ref.socket;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState2 = _slicedToArray(_useState, 2),
+      message = _useState2[0],
+      setMessage = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    socket.on("chat message", function () {
+      return setMessage("");
+    });
+  }, [socket]);
+
+  var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
+    socket.emit("chat message", message);
+    message = "";
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+    id: "form",
+    onSubmit: handleSubmit,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+      id: "input",
+      type: "text",
+      value: message,
+      onChange: function onChange(e) {
+        return setMessage(e.target.value);
+      },
+      autoComplete: "off"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+      type: "submit",
+      value: "Send"
+    })]
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ChatForm);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Dashboard.js":
 /*!*****************************************!*\
   !*** ./resources/js/Pages/Dashboard.js ***!
@@ -5601,16 +5672,136 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Game)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+Object(function webpackMissingModule() { var e = new Error("Cannot find module 'socket.io-client'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _header_InfoPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header/InfoPanel */ "./resources/js/Pages/header/InfoPanel.js");
+/* harmony import */ var _Messages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Messages */ "./resources/js/Pages/Messages.js");
+/* harmony import */ var _ChatForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ChatForm */ "./resources/js/Pages/ChatForm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+var apiEndpoint = "http://localhost:4500";
+var socket = Object(function webpackMissingModule() { var e = new Error("Cannot find module 'socket.io-client'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())(apiEndpoint);
+var id = sessionStorage.getItem("id");
+
+if (id) {
+  socket.emit("reconnect player", id);
+}
 
 function Game() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
-      children: "Game"
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState2 = _slicedToArray(_useState, 2),
+      name = _useState2[0],
+      setName = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      players = _useState4[0],
+      setPlayers = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      messages = _useState6[0],
+      setMessages = _useState6[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    socket.on("player connected", function (_ref) {
+      var name = _ref.name,
+          players = _ref.players,
+          messages = _ref.messages;
+      sessionStorage.setItem("id", id);
+      setName(name);
+      setPlayers(players);
+      setMessages(messages);
+    });
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+    children: name === "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Intro, {
+      socket: socket
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_header_InfoPanel__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        players: (players, id)
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        socket: socket,
+        allMessages: messages
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ChatForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        socket: socket
+      })]
     })
   });
 }
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Messages.js":
+/*!****************************************!*\
+  !*** ./resources/js/Pages/Messages.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+function Messages(_ref) {
+  var allMessages = _ref.allMessages,
+      socket = _ref.socket;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(allMessages),
+      _useState2 = _slicedToArray(_useState, 2),
+      messages = _useState2[0],
+      setMessages = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    socket.on("chat message", function (allMessages) {
+      return setMessages(allMessages);
+    });
+  }, [socket]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
+    children: messages.map(function (message, id) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+        children: message
+      }, id);
+    })
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Messages);
 
 /***/ }),
 
@@ -5665,6 +5856,123 @@ function Welcome(props) {
     })]
   });
 }
+
+/***/ }),
+
+/***/ "./resources/js/Pages/header/InfoPanel.js":
+/*!************************************************!*\
+  !*** ./resources/js/Pages/header/InfoPanel.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ InfoPanel)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _RoleInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoleInfo */ "./resources/js/Pages/header/RoleInfo.js");
+/* harmony import */ var _PlayerInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PlayerInfo */ "./resources/js/Pages/header/PlayerInfo.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+function InfoPanel(_ref) {
+  var players = _ref.players,
+      id = _ref.id;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    id: "info",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_RoleInfo__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_PlayerInfo__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      players: players,
+      id: id
+    })]
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/Pages/header/PlayerInfo.js":
+/*!*************************************************!*\
+  !*** ./resources/js/Pages/header/PlayerInfo.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+function PlayerInfo(_ref) {
+  var players = _ref.players,
+      id = _ref.id;
+  console.log(players); // deleteme
+
+  console.log(sessionStorage.getItem("id")); // deleteme
+
+  var thePlayer = players.find(function (player) {
+    return player.id === id;
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    id: "players",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
+        children: "Players:"
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
+        children: [thePlayer.name, " (you)"]
+      }), players.filter(function (player) {
+        return player.name !== thePlayer.name;
+      }).map(function (player, id) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+          children: player.name
+        }, id);
+      })]
+    })]
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerInfo);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/header/RoleInfo.js":
+/*!***********************************************!*\
+  !*** ./resources/js/Pages/header/RoleInfo.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+function RoleInfo() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    id: "roles",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
+        children: "Roles:"
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {})]
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RoleInfo);
 
 /***/ }),
 
@@ -58917,12 +59225,22 @@ var map = {
 	"./Auth/ResetPassword.js": "./resources/js/Pages/Auth/ResetPassword.js",
 	"./Auth/VerifyEmail": "./resources/js/Pages/Auth/VerifyEmail.js",
 	"./Auth/VerifyEmail.js": "./resources/js/Pages/Auth/VerifyEmail.js",
+	"./ChatForm": "./resources/js/Pages/ChatForm.js",
+	"./ChatForm.js": "./resources/js/Pages/ChatForm.js",
 	"./Dashboard": "./resources/js/Pages/Dashboard.js",
 	"./Dashboard.js": "./resources/js/Pages/Dashboard.js",
 	"./Game": "./resources/js/Pages/Game.js",
 	"./Game.js": "./resources/js/Pages/Game.js",
+	"./Messages": "./resources/js/Pages/Messages.js",
+	"./Messages.js": "./resources/js/Pages/Messages.js",
 	"./Welcome": "./resources/js/Pages/Welcome.js",
-	"./Welcome.js": "./resources/js/Pages/Welcome.js"
+	"./Welcome.js": "./resources/js/Pages/Welcome.js",
+	"./header/InfoPanel": "./resources/js/Pages/header/InfoPanel.js",
+	"./header/InfoPanel.js": "./resources/js/Pages/header/InfoPanel.js",
+	"./header/PlayerInfo": "./resources/js/Pages/header/PlayerInfo.js",
+	"./header/PlayerInfo.js": "./resources/js/Pages/header/PlayerInfo.js",
+	"./header/RoleInfo": "./resources/js/Pages/header/RoleInfo.js",
+	"./header/RoleInfo.js": "./resources/js/Pages/header/RoleInfo.js"
 };
 
 
