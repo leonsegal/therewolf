@@ -5,11 +5,15 @@ import ChatForm from "./ChatForm";
 
 export default function Game() {
     let [messages, setMessages] = useState([]);
+    let [user, setUser] = useState({});
 
     useEffect(() => {
         axios
             .get("/messages")
-            .then((res) => setMessages(res.data))
+            .then((res) => {
+                setMessages(res.data.messages);
+                setUser(res.data.user);
+            })
             .catch(console.error);
     }, []);
 
@@ -18,8 +22,8 @@ export default function Game() {
             <h1>Chat</h1>
 
             {/*<InfoPanel players={players} />*/}
-            <Messages messages={messages} />
-            <ChatForm user="{{ Auth::user() }}" />
+            <Messages messages={messages} user={user} />
+            <ChatForm />
         </>
     );
 }
