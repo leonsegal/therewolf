@@ -1,18 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // import InfoPanel from "./header/InfoPanel";
 import Messages from "./Messages";
 import ChatForm from "./ChatForm";
 
 export default function Game() {
-    let messages = [];
+    let [messages, setMessages] = useState([]);
 
-    for (let i = 0; i < 10; i++) {
-        messages.push({
-            id: i + 1,
-            player: `Player ${i + 1}`,
-            text: `test message ${i + 1}`,
-        });
-    }
+    useEffect(() => {
+        fetch("/messages")
+            .then((res) => res.json())
+            .then((data) => setMessages(data));
+    }, []);
 
     return (
         <>

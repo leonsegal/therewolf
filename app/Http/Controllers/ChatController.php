@@ -14,13 +14,19 @@ class ChatController extends Controller
 
     public function index()
     {
-        return Message::with("user")->get();
+        return [
+            ["text" => "foo here", "id" => 1, "player" => "mr foo"],
+            ["text" => "bar here", "id" => 2, "player" => "mr bar"],
+            ["text" => "baz here", "id" => 3, "player" => "mr baz"],
+            ["text" => "foobar here", "id" => 4, "player" => "mr foobar"],
+            ["text" => "foobaz here", "id" => 5, "player" => "mr foobaz"],
+        ];
     }
 
     public function store()
     {
-        $user = auth()->user();
-        $user->messages()->create([
+        $player = auth()->user();
+        $player->messages()->create([
             "message" => request("message"),
         ]);
 
