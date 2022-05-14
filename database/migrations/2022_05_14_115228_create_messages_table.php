@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
             $table->integer("user_id")->unsigned();
-            $table->text("message");
+            $table->text("body");
         });
     }
 

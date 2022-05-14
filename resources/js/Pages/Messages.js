@@ -5,7 +5,7 @@ export default function Messages({ messages }) {
         <ul>
             {messages.map((message) => (
                 <li key={message.id}>
-                    {message.player}: {message.text}
+                    {message.player_name}: {message.body}
                 </li>
             ))}
         </ul>

@@ -7,9 +7,10 @@ export default function Game() {
     let [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        fetch("/messages")
-            .then((res) => res.json())
-            .then((data) => setMessages(data));
+        axios
+            .get("/messages")
+            .then((res) => setMessages(res.data))
+            .catch(console.error);
     }, []);
 
     return (

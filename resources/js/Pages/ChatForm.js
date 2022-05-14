@@ -5,10 +5,15 @@ export default function ChatForm() {
 
     let sendMessage = (e) => {
         e.preventDefault();
+
+        axios
+            .post("/message", { body: message })
+            .then(setMessage(""))
+            .catch(console.error);
     };
 
     return (
-        <form id="form" onSubmit={() => sendMessage()}>
+        <form method="POST" id="form" onSubmit={(e) => sendMessage(e)}>
             <input
                 id="input"
                 type="text"

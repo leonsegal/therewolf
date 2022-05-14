@@ -5540,12 +5540,16 @@ function ChatForm() {
 
   var sendMessage = function sendMessage(e) {
     e.preventDefault();
+    axios.post("/message", {
+      body: message
+    }).then(setMessage(""))["catch"](console.error);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+    method: "POST",
     id: "form",
-    onSubmit: function onSubmit() {
-      return sendMessage();
+    onSubmit: function onSubmit(e) {
+      return sendMessage(e);
     },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
       id: "input",
@@ -5693,11 +5697,9 @@ function Game() {
       setMessages = _useState2[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    fetch("/messages").then(function (res) {
-      return res.json();
-    }).then(function (data) {
-      return setMessages(data);
-    });
+    axios.get("/messages").then(function (res) {
+      return setMessages(res.data);
+    })["catch"](console.error);
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
@@ -5733,7 +5735,7 @@ function Messages(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
     children: messages.map(function (message) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
-        children: [message.player, ": ", message.text]
+        children: [message.player_name, ": ", message.body]
       }, message.id);
     })
   });
