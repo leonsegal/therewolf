@@ -14,14 +14,18 @@ class MessageController extends Controller
     public function index()
     {
         // todo: get messages for current game only
-        return Message::all()->map(
-            fn($message) => [
-                "id" => $message->id,
-                "body" => $message->body,
-                "player_name" => $message->user->name,
-                "created_at" => $message->created_at,
-            ]
-        );
+        return [
+            "messages" => Message::all()->map(
+                fn($message) => [
+                    "id" => $message->id,
+                    "body" => $message->body,
+                    "player_name" => $message->user->name,
+                    "player_id" => $message->user->id,
+                    "created_at" => $message->created_at,
+                ]
+            ),
+            "user" => auth()->user(),
+        ];
     }
 
     public function store()
