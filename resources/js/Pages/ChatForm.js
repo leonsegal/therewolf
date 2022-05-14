@@ -1,30 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-function ChatForm({ socket }) {
-  let [message, setMessage] = useState("");
+export default function ChatForm() {
+    let [message, setMessage] = useState("");
 
-  useEffect(() => {
-    socket.on("chat message", () => setMessage(""));
-  }, [socket]);
+    let sendMessage = (e) => {
+        e.preventDefault();
+    };
 
-  let handleSubmit = (e) => {
-    e.preventDefault();
-    socket.emit("chat message", message);
-    message = "";
-  };
-
-  return (
-    <form id="form" onSubmit={handleSubmit}>
-      <input
-        id="input"
-        type="text"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        autoComplete="off"
-      />
-      <input type="submit" value="Send" />
-    </form>
-  );
+    return (
+        <form id="form" onSubmit={() => sendMessage()}>
+            <input
+                id="input"
+                type="text"
+                name="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Type your message here..."
+                autoFocus={true}
+                autoComplete="off"
+            />
+            <input type="submit" value="Send" />
+        </form>
+    );
 }
-
-export default ChatForm;

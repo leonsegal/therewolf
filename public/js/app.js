@@ -5513,7 +5513,7 @@ function VerifyEmail(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (/* binding */ ChatForm)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -5532,37 +5532,31 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-function ChatForm(_ref) {
-  var socket = _ref.socket;
-
+function ChatForm() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
       message = _useState2[0],
       setMessage = _useState2[1];
 
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    socket.on("chat message", function () {
-      return setMessage("");
-    });
-  }, [socket]);
-
-  var handleSubmit = function handleSubmit(e) {
+  var sendMessage = function sendMessage(e) {
     e.preventDefault();
-    socket.emit("chat message", message);
-    message = "";
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
     id: "form",
-    onSubmit: handleSubmit,
+    onSubmit: function onSubmit() {
+      return sendMessage();
+    },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
       id: "input",
       type: "text",
+      name: "message",
       value: message,
       onChange: function onChange(e) {
         return setMessage(e.target.value);
       },
+      placeholder: "Type your message here...",
+      autoFocus: true,
       autoComplete: "off"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
       type: "submit",
@@ -5570,8 +5564,6 @@ function ChatForm(_ref) {
     })]
   });
 }
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ChatForm);
 
 /***/ }),
 
@@ -5672,11 +5664,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Game)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _header_InfoPanel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header/InfoPanel */ "./resources/js/Pages/header/InfoPanel.js");
-/* harmony import */ var _Messages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Messages */ "./resources/js/Pages/Messages.js");
-/* harmony import */ var _ChatForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ChatForm */ "./resources/js/Pages/ChatForm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
+/* harmony import */ var _Messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Messages */ "./resources/js/Pages/Messages.js");
+/* harmony import */ var _ChatForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ChatForm */ "./resources/js/Pages/ChatForm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+ // import InfoPanel from "./header/InfoPanel";
 
 
 
@@ -5684,24 +5675,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Game() {
-  var messages = [{
-    id: 1,
-    text: "test message 1"
-  }, {
-    id: 2,
-    text: "test message 2"
-  }, {
-    id: 3,
-    text: "test message 3"
-  }, {
-    id: 4,
-    text: "test message 4"
-  }];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+  var messages = [];
+
+  for (var i = 0; i < 10; i++) {
+    messages.push({
+      id: i + 1,
+      player: "Player ".concat(i + 1),
+      text: "test message ".concat(i + 1)
+    });
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
       children: "Chat"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_1__["default"], {
       messages: messages
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ChatForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      user: "{{ Auth::user() }}"
     })]
   });
 }
@@ -5723,12 +5713,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
+
 function Messages(_ref) {
   var messages = _ref.messages;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
     children: messages.map(function (message) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
-        children: message.text
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
+        children: [message.player, ": ", message.text]
       }, message.id);
     })
   });

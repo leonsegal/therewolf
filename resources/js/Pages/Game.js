@@ -1,36 +1,26 @@
 import React from "react";
-import InfoPanel from "./header/InfoPanel";
+// import InfoPanel from "./header/InfoPanel";
 import Messages from "./Messages";
 import ChatForm from "./ChatForm";
 
 export default function Game() {
-    let messages = [
-        {
-            id: 1,
-            text: "test message 1",
-        },
-        {
-            id: 2,
-            text: "test message 2",
-        },
-        {
-            id: 3,
-            text: "test message 3",
-        },
-        {
-            id: 4,
-            text: "test message 4",
-        },
-    ];
+    let messages = [];
+
+    for (let i = 0; i < 10; i++) {
+        messages.push({
+            id: i + 1,
+            player: `Player ${i + 1}`,
+            text: `test message ${i + 1}`,
+        });
+    }
 
     return (
         <>
             <h1>Chat</h1>
 
-            <Messages messages={messages} />
-            {/*<ChatForm user="{{ Auth::user() }}" />*/}
             {/*<InfoPanel players={players} />*/}
-            {/*<Messages socket={socket} allMessages={messages} />*/}
+            <Messages messages={messages} />
+            <ChatForm user="{{ Auth::user() }}" />
         </>
     );
 }
