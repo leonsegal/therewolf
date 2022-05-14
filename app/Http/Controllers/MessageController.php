@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Models\Message;
 
 class MessageController extends Controller
@@ -31,9 +32,11 @@ class MessageController extends Controller
     public function store()
     {
         $player = auth()->user();
-        $player->messages()->create([
+        $message = $player->messages()->create([
             "body" => request("body"),
         ]);
+
+        broadcast(new MessageSent($player, $message))->toOthers();
 
         return ["status" => "Message sent"];
     }

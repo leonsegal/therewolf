@@ -8,6 +8,13 @@ export default function Game() {
     let [user, setUser] = useState({});
 
     useEffect(() => {
+        Echo.private("chat").listen("MessageSent", (e) => {
+            setUser(e.user);
+            setMessages([...messages, e.message]);
+        });
+    });
+
+    useEffect(() => {
         axios
             .get("/messages")
             .then((res) => {

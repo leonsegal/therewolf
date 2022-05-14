@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 window._ = require("lodash");
 
 /**
@@ -25,4 +27,12 @@ window.Echo = new Echo({
     key: process.env.MIX_PUSHER_APP_KEY,
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     forceTLS: true,
+});
+
+window.Echo.channel("chat").listen("MessageSent", (e) => {
+    console.log(e);
+});
+
+window.Echo.private("chat").listen("MessageSent", (e) => {
+    console.log(e); // deleteme
 });
