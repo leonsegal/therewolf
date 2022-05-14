@@ -5542,9 +5542,7 @@ function ChatForm() {
     e.preventDefault();
     axios.post("/message", {
       body: message
-    }).then(function () {
-      return setMessage("");
-    })["catch"](console.error);
+    }).then(setMessage(""))["catch"](console.error);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
