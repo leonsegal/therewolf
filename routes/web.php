@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +36,8 @@ Route::get("game", function () {
 })
     ->middleware(["auth", "verified"])
     ->name("game");
+
+Route::get("/messages", [ChatController::class, "index"]);
+Route::post("/messages", [ChatController::class, "store"]);
 
 require __DIR__ . "/auth.php";

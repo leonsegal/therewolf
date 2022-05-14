@@ -11,6 +11,7 @@ export default function Game() {
     let [players, setPlayers] = useState([]);
     let [messages, setMessages] = useState([]);
 
+    Echo.private(`foo`).notification(() => {});
     useEffect(() => {
         socket.on("player connected", ({ players, messages }) => {
             setPlayers(players);
