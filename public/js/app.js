@@ -5542,7 +5542,9 @@ function ChatForm() {
     e.preventDefault();
     axios.post("/message", {
       body: message
-    }).then(setMessage(""))["catch"](console.error);
+    }).then(function () {
+      return setMessage("");
+    })["catch"](console.error);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
@@ -5696,19 +5698,24 @@ function Game() {
       messages = _useState2[0],
       setMessages = _useState2[1];
 
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+      _useState4 = _slicedToArray(_useState3, 2),
+      user = _useState4[0],
+      setUser = _useState4[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     axios.get("/messages").then(function (res) {
-      return setMessages(res.data);
+      setMessages(res.data.messages);
+      setUser(res.data.user);
     })["catch"](console.error);
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
       children: "Chat"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      messages: messages
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ChatForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      user: "{{ Auth::user() }}"
-    })]
+      messages: messages,
+      user: user
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ChatForm__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
   });
 }
 
@@ -5731,11 +5738,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Messages(_ref) {
-  var messages = _ref.messages;
+  var messages = _ref.messages,
+      user = _ref.user;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
     children: messages.map(function (message) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
-        children: [message.player_name, ": ", message.body]
+        children: [message.player_name, user.id === message.player_id ? "(you): " : ": ", message.body]
       }, message.id);
     })
   });
