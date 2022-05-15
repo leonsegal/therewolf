@@ -20,10 +20,9 @@ export default class Game extends React.Component {
         this.getMessages();
         this.getUser();
 
-        window.Echo.private("chat").listen("MessageSent", (e) => {
-            console.log("socket messages"); // deleteme
-            this.setState({ messages: [e.message, ...this.state.messages] });
-        });
+        window.Echo.private("chat").listen("MessageSent", (e) =>
+            this.setState({ messages: [...this.state.messages, e.message] })
+        );
     }
 
     getMessages() {

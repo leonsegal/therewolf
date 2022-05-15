@@ -5742,10 +5742,8 @@ var Game = /*#__PURE__*/function (_React$Component) {
       this.getMessages();
       this.getUser();
       window.Echo["private"]("chat").listen("MessageSent", function (e) {
-        console.log("socket messages"); // deleteme
-
-        _this2.setState({
-          messages: [e.message].concat(_toConsumableArray(_this2.state.messages))
+        return _this2.setState({
+          messages: [].concat(_toConsumableArray(_this2.state.messages), [e.message])
         });
       });
     }
