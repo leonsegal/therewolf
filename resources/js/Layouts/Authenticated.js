@@ -19,16 +19,10 @@ export default function Authenticated({ auth, header, children }) {
                                 <Link href="/">
                                     <ApplicationLogo className="block h-9 w-auto text-gray-500" />
                                 </Link>
+                                <span className="ml-2">Therewolf!</span>
                             </div>
 
-                            {/*<div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">*/}
-                            {/*    <NavLink*/}
-                            {/*        href={route("dashboard")}*/}
-                            {/*        active={route().current("dashboard")}*/}
-                            {/*    >*/}
-                            {/*        Dashboard*/}
-                            {/*    </NavLink>*/}
-                            {/*</div>*/}
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"></div>
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
