@@ -6,13 +6,13 @@ import ChatForm from "./ChatForm";
 export default function Game() {
     let [messages, setMessages] = useState([]);
     let [user, setUser] = useState({});
-
     useEffect(() => {
         Echo.private("chat").listen("MessageSent", (e) => {
+            console.log(e); // deleteme
             setUser(e.user);
-            setMessages([...messages, e.message]);
+            setMessages([e.message, ...messages]);
         });
-    });
+    }, []);
 
     useEffect(() => {
         axios

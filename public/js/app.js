@@ -5711,10 +5711,12 @@ function Game() {
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     Echo["private"]("chat").listen("MessageSent", function (e) {
+      console.log(e); // deleteme
+
       setUser(e.user);
-      setMessages([].concat(_toConsumableArray(messages), [e.message]));
+      setMessages([e.message].concat(_toConsumableArray(messages)));
     });
-  });
+  }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     axios.get("/messages").then(function (res) {
       setMessages(res.data.messages);
@@ -5985,9 +5987,7 @@ _inertiajs_progress__WEBPACK_IMPORTED_MODULE_3__.InertiaProgress.init({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
-
+/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -6005,17 +6005,11 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
-window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_1__["default"]({
+window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: "pusher",
   key: "eda6ebd8109ed03c3777",
   cluster: "eu",
   forceTLS: true
-});
-window.Echo.channel("chat").listen("MessageSent", function (e) {
-  console.log(e);
-});
-window.Echo["private"]("chat").listen("MessageSent", function (e) {
-  console.log(e); // deleteme
 });
 
 /***/ }),
