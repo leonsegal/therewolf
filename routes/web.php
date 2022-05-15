@@ -42,5 +42,6 @@ Route::get("game", function () {
 Route::get("/messages", [MessageController::class, "index"]);
 Route::post("/message", [MessageController::class, "store"]);
 Route::get("/user", [UserController::class, "index"]);
+Route::get("/players", [UserController::class, "index"]);
 
 require __DIR__ . "/auth.php";
