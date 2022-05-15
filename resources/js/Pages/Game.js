@@ -1,32 +1,56 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 // import InfoPanel from "./header/InfoPanel";
 import Messages from "./Messages";
 import ChatForm from "./ChatForm";
 
-export default function Game() {
-    let [messages, setMessages] = useState([]);
-    let [user, setUser] = useState({});
+export default class Game extends React.Component {
+    constructor(props) {
+        super(props);
 
-    useEffect(() => {
-        Echo.private("chat").listen("MessageSent", (e) =>
-            setMessages([e.message, ...messages])
-        );
+        this.state = {
+            messages: [],
+            user: {
+                name: "",
+                id: "",
+            },
+        };
+    }
 
+    componentDidMount() {
+        this.getMessages();
+        this.getUser();
+
+        window.Echo.private("chat").listen("MessageSent", (e) => {
+            console.log("socket messages"); // deleteme
+            this.setState({ messages: [e.message, ...this.state.messages] });
+        });
+    }
+
+    getMessages() {
         axios
             .get("/messages")
-            .then((res) => setMessages(res.data.messages))
+            .then((res) => this.setState({ messages: res.data.messages }))
             .catch(console.error);
+    }
 
-        axios.get("/user").then((res) => setUser(res.data.user));
-    }, [user, messages]);
+    getUser() {
+        axios
+            .get("/user")
+            .then((res) => this.setState({ user: res.data.user }));
+    }
 
-    return (
-        <>
-            <h1>Chat</h1>
+    render() {
+        return (
+            <>
+                <h1>Chat</h1>
 
-            {/*<InfoPanel players={players} />*/}
-            <Messages messages={messages} user={user} />
-            <ChatForm />
-        </>
-    );
+                {/*<InfoPanel players={players} />*/}
+                <Messages
+                    messages={this.state.messages}
+                    user={this.state.user}
+                />
+                <ChatForm />
+            </>
+        );
+    }
 }
