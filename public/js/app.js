@@ -5711,18 +5711,15 @@ function Game() {
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     Echo["private"]("chat").listen("MessageSent", function (e) {
-      console.log(e); // deleteme
-
-      setUser(e.user);
-      setMessages([e.message].concat(_toConsumableArray(messages)));
+      return setMessages([e.message].concat(_toConsumableArray(messages)));
     });
-  }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     axios.get("/messages").then(function (res) {
-      setMessages(res.data.messages);
-      setUser(res.data.user);
+      return setMessages(res.data.messages);
     })["catch"](console.error);
-  }, []);
+    axios.get("/user").then(function (res) {
+      return setUser(res.data.user);
+    });
+  }, [user, messages]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
       children: "Chat"

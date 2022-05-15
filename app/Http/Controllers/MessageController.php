@@ -36,7 +36,7 @@ class MessageController extends Controller
             "body" => request("body"),
         ]);
 
-        event(new MessageSent($player, $message));
+        broadcast(new MessageSent($player, $message))->toOthers();
 
         return ["status" => "Message sent"];
     }
