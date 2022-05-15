@@ -1,30 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function ChatForm() {
-    let [message, setMessage] = useState("");
+export default class ChatForm extends React.Component {
+    constructor(props) {
+        super(props);
 
-    let sendMessage = (e) => {
-        e.preventDefault();
+        this.state = { message: this.props.message };
+    }
 
-        axios
-            .post("/message", { body: message })
-            .then(setMessage(""))
-            .catch(console.error);
-    };
+    componentDidUpdate(prevProps) {
+        if (prevProps.message !== this.props.message) {
+            this.setState({ message: this.props.message });
+        }
+    }
 
-    return (
-        <form method="POST" id="form" onSubmit={(e) => sendMessage(e)}>
-            <input
-                id="input"
-                type="text"
-                name="message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Type your message here..."
-                autoFocus={true}
-                autoComplete="off"
-            />
-            <input type="submit" value="Send" />
-        </form>
-    );
+    render() {
+        return (
+            <form
+                method="POST"
+                id="form"
+                onSubmit={(e) => this.props.sendMessage(e, this.state.message)}
+            >
+                <input
+                    id="input"
+                    type="text"
+                    name="message"
+                    value={this.state.message}
+                    onChange={(e) => this.props.changeMessage(e)}
+                    placeholder="Type your message here..."
+                    autoFocus={true}
+                    autoComplete="off"
+                />
+                <input type="submit" value="Send" />
+            </form>
+        );
+    }
 }
