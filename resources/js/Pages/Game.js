@@ -44,10 +44,12 @@ export default class Game extends React.Component {
                 <h1>Chat</h1>
 
                 {/*<InfoPanel players={players} />*/}
+
                 <Messages
                     messages={this.state.messages}
                     user={this.state.user}
                 />
+
                 <ChatForm />
             </>
         );

@@ -5811,8 +5811,10 @@ function Messages(_ref) {
       user = _ref.user;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
     children: messages.map(function (message) {
+      var playerId = message.user ? message.user.id : message.player_id;
+      var playerName = message.user ? message.user.name : message.player_name;
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
-        children: [message.player_name, user.id === message.player_id ? "(you): " : ": ", message.body]
+        children: [user.id === playerId ? "".concat(playerName, "(you): ") : "".concat(playerName, ": "), message.body]
       }, message.id);
     })
   });
