@@ -28,9 +28,7 @@ export default class Game extends React.Component {
         this.getUser();
 
         Echo.join(`chat.${this.roomIds.main}`)
-            .here((users) => {
-                this.setState({ players: users });
-            })
+            .here((users) => this.setState({ players: users }))
             .joining((user) => this.addUser(user))
             .leaving((user) => this.removeUser(user))
             .listen("MessageSent", (e) =>

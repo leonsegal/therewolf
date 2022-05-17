@@ -5826,7 +5826,7 @@ var Game = /*#__PURE__*/function (_React$Component) {
       this.getMessages();
       this.getUser();
       Echo.join("chat.".concat(this.roomIds.main)).here(function (users) {
-        _this2.setState({
+        return _this2.setState({
           players: users
         });
       }).joining(function (user) {
