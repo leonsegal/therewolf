@@ -34,6 +34,7 @@ class MessageController extends Controller
         $player = auth()->user();
         $message = $player->messages()->create([
             "body" => request("body"),
+            "room_id" => request("roomId"),
         ]);
 
         broadcast(new MessageSent($message));

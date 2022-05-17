@@ -7,7 +7,7 @@ export default function ChatForm() {
         e.preventDefault();
 
         axios
-            .post("/message", { body: message })
+            .post("/message", { body: message, roomId: 0 })
             .then(setMessage(""))
             .catch(console.error);
     };

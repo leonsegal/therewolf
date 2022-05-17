@@ -1,5 +1,5 @@
 import React from "react";
-// import InfoPanel from "./header/InfoPanel";
+import InfoPanel from "./header/InfoPanel";
 import Messages from "./Messages";
 import ChatForm from "./ChatForm";
 
@@ -7,12 +7,19 @@ export default class Game extends React.Component {
     constructor(props) {
         super(props);
 
+        this.roomIds = {
+            main: 0,
+            werewolf: 1,
+            dead: 2,
+        };
+
         this.state = {
             messages: [],
             user: {
                 name: "",
                 id: "",
             },
+            players: [],
         };
     }
 
@@ -20,9 +27,16 @@ export default class Game extends React.Component {
         this.getMessages();
         this.getUser();
 
-        window.Echo.private("chat").listen("MessageSent", (e) =>
-            this.setState({ messages: [...this.state.messages, e.message] })
-        );
+        Echo.join(`chat.${this.roomIds.main}`)
+            .here((users) => {
+                this.setState({ players: users });
+            })
+            .joining((user) => this.addUser(user))
+            .leaving((user) => this.removeUser(user))
+            .listen("MessageSent", (e) =>
+                this.setState({ messages: [...this.state.messages, e.message] })
+            )
+            .error((error) => console.error(error));
     }
 
     getMessages() {
@@ -38,12 +52,23 @@ export default class Game extends React.Component {
             .then((res) => this.setState({ user: res.data.user }));
     }
 
+    addUser(user) {
+        this.setState({ players: [...this.state.players, user] });
+    }
+
+    removeUser(user) {
+        this.setState({
+            players: this.state.players.filter((usr) => usr.id !== user.id),
+        });
+    }
+
     render() {
         return (
             <>
-                <h1>Chat</h1>
-
-                {/*<InfoPanel players={players} />*/}
+                <InfoPanel
+                    players={this.state.players}
+                    user={this.state.user}
+                />
 
                 <Messages
                     messages={this.state.messages}

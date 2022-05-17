@@ -5546,7 +5546,8 @@ function ChatForm() {
   var sendMessage = function sendMessage(e) {
     e.preventDefault();
     axios.post("/message", {
-      body: message
+      body: message,
+      roomId: 0
     }).then(setMessage(""))["catch"](console.error);
   };
 
@@ -5744,9 +5745,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Game)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Messages */ "./resources/js/Pages/Messages.js");
-/* harmony import */ var _ChatForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ChatForm */ "./resources/js/Pages/ChatForm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _header_InfoPanel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header/InfoPanel */ "./resources/js/Pages/header/InfoPanel.js");
+/* harmony import */ var _Messages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Messages */ "./resources/js/Pages/Messages.js");
+/* harmony import */ var _ChatForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ChatForm */ "./resources/js/Pages/ChatForm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -5781,7 +5783,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
- // import InfoPanel from "./header/InfoPanel";
+
 
 
 
@@ -5800,12 +5802,18 @@ var Game = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, Game);
 
     _this = _super.call(this, props);
+    _this.roomIds = {
+      main: 0,
+      werewolf: 1,
+      dead: 2
+    };
     _this.state = {
       messages: [],
       user: {
         name: "",
         id: ""
-      }
+      },
+      players: []
     };
     return _this;
   }
@@ -5817,10 +5825,20 @@ var Game = /*#__PURE__*/function (_React$Component) {
 
       this.getMessages();
       this.getUser();
-      window.Echo["private"]("chat").listen("MessageSent", function (e) {
+      Echo.join("chat.".concat(this.roomIds.main)).here(function (users) {
+        _this2.setState({
+          players: users
+        });
+      }).joining(function (user) {
+        return _this2.addUser(user);
+      }).leaving(function (user) {
+        return _this2.removeUser(user);
+      }).listen("MessageSent", function (e) {
         return _this2.setState({
           messages: [].concat(_toConsumableArray(_this2.state.messages), [e.message])
         });
+      }).error(function (error) {
+        return console.error(error);
       });
     }
   }, {
@@ -5846,15 +5864,32 @@ var Game = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "addUser",
+    value: function addUser(user) {
+      this.setState({
+        players: [].concat(_toConsumableArray(this.state.players), [user])
+      });
+    }
+  }, {
+    key: "removeUser",
+    value: function removeUser(user) {
+      this.setState({
+        players: this.state.players.filter(function (usr) {
+          return usr.id !== user.id;
+        })
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
-          children: "Chat"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_header_InfoPanel__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          players: this.state.players,
+          user: this.state.user
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_2__["default"], {
           messages: this.state.messages,
           user: this.state.user
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ChatForm__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ChatForm__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
       });
     }
   }]);
@@ -5975,11 +6010,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function InfoPanel(_ref) {
-  var players = _ref.players;
+  var players = _ref.players,
+      user = _ref.user;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     id: "info",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_RoleInfo__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_PlayerInfo__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      players: players
+      players: players,
+      user: user
     })]
   });
 }
@@ -6004,10 +6041,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function PlayerInfo(_ref) {
-  var players = _ref.players;
-  // get id from user
+  var players = _ref.players,
+      user = _ref.user;
   var thePlayer = players.find(function (player) {
-    return player.id === userId;
+    return player.id === user.id;
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     id: "players",
@@ -6016,16 +6053,18 @@ function PlayerInfo(_ref) {
         children: "Players:"
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
+      children: [thePlayer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
         children: [thePlayer.name, " (you)"]
-      }), players.filter(function (player) {
-        return player.id !== thePlayer.id;
+      }) : null, players.filter(function (player) {
+        if (thePlayer) {
+          return thePlayer.id !== player.id;
+        }
       }).map(function (player, id) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
           children: player.name
         }, id);
       })]
-    })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {})]
   });
 }
 

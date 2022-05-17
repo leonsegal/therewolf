@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -34,6 +35,6 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel("chat");
+        return new PresenceChannel("chat." . $this->message->room_id);
     }
 }

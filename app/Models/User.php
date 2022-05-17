@@ -16,7 +16,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = ["name", "email", "password"];
+    protected $fillable = ["name", "email", "password", "roomIds"];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -37,5 +37,19 @@ class User extends Authenticatable
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function canJoinRoom($roomId): bool
+    {
+        // all can join room 0 (main)
+        if ((int) $roomId === 0) {
+            return true;
+        }
+
+        if ((int) $roomId === $this->role_id) {
+            return true;
+        }
+
+        return false;
     }
 }

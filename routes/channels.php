@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Broadcast;
 | Broadcast Channels
 |--------------------------------------------------------------------------
 |
-| Here you may register all of the event broadcasting channels that your
+| Here you may register all the event broadcasting channels that your
 | application supports. The given channel authorization callbacks are
 | used to check if an authenticated user can listen to the channel.
 |
@@ -20,6 +20,10 @@ use Illuminate\Support\Facades\Broadcast;
 //Broadcast::channel('orders.{orderId}', function ($user, $orderId) {
 //    return $user->id === Order::findOrNew($orderId)->user_id;
 //});
-Broadcast::channel("chat", function () {
-    return Auth::check();
+Broadcast::channel("chat.{roomId}", function ($user, $roomId) {
+    if (!$user->canJoinRoom($roomId)) {
+        return false;
+    }
+
+    return ["id" => $user->id, "name" => $user->name];
 });
