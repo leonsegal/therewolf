@@ -15,7 +15,7 @@ export default class Game extends React.Component {
 
         this.state = {
             messages: [],
-            user: {
+            player: {
                 name: "",
                 id: "",
             },
@@ -25,12 +25,12 @@ export default class Game extends React.Component {
 
     componentDidMount() {
         this.getMessages();
-        this.getUser();
+        this.getPlayer();
 
         Echo.join(`chat.${this.roomIds.main}`)
-            .here((users) => this.setState({ players: users }))
-            .joining((user) => this.addUser(user))
-            .leaving((user) => this.removeUser(user))
+            .here((players) => this.setState({ players }))
+            .joining((player) => this.addPlayer(player))
+            .leaving((player) => this.removePlayer(player))
             .listen("MessageSent", (e) =>
                 this.setState({ messages: [...this.state.messages, e.message] })
             )
@@ -44,19 +44,21 @@ export default class Game extends React.Component {
             .catch(console.error);
     }
 
-    getUser() {
+    getPlayer() {
         axios
-            .get("/user")
-            .then((res) => this.setState({ user: res.data.user }));
+            .get("/player")
+            .then((res) => this.setState({ player: res.data.player }));
     }
 
-    addUser(user) {
-        this.setState({ players: [...this.state.players, user] });
+    addPlayer(player) {
+        this.setState({ players: [...this.state.players, player] });
     }
 
-    removeUser(user) {
+    removePlayer(thePlayer) {
         this.setState({
-            players: this.state.players.filter((usr) => usr.id !== user.id),
+            players: this.state.players.filter(
+                (player) => player.id !== thePlayer.id
+            ),
         });
     }
 
@@ -65,12 +67,12 @@ export default class Game extends React.Component {
             <>
                 <InfoPanel
                     players={this.state.players}
-                    user={this.state.user}
+                    player={this.state.player}
                 />
 
                 <Messages
                     messages={this.state.messages}
-                    user={this.state.user}
+                    player={this.state.player}
                 />
 
                 <ChatForm />

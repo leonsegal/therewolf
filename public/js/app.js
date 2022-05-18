@@ -5809,7 +5809,7 @@ var Game = /*#__PURE__*/function (_React$Component) {
     };
     _this.state = {
       messages: [],
-      user: {
+      player: {
         name: "",
         id: ""
       },
@@ -5824,15 +5824,15 @@ var Game = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.getMessages();
-      this.getUser();
-      Echo.join("chat.".concat(this.roomIds.main)).here(function (users) {
+      this.getPlayer();
+      Echo.join("chat.".concat(this.roomIds.main)).here(function (players) {
         return _this2.setState({
-          players: users
+          players: players
         });
-      }).joining(function (user) {
-        return _this2.addUser(user);
-      }).leaving(function (user) {
-        return _this2.removeUser(user);
+      }).joining(function (player) {
+        return _this2.addPlayer(player);
+      }).leaving(function (player) {
+        return _this2.removePlayer(player);
       }).listen("MessageSent", function (e) {
         return _this2.setState({
           messages: [].concat(_toConsumableArray(_this2.state.messages), [e.message])
@@ -5853,29 +5853,29 @@ var Game = /*#__PURE__*/function (_React$Component) {
       })["catch"](console.error);
     }
   }, {
-    key: "getUser",
-    value: function getUser() {
+    key: "getPlayer",
+    value: function getPlayer() {
       var _this4 = this;
 
-      axios.get("/user").then(function (res) {
+      axios.get("/player").then(function (res) {
         return _this4.setState({
-          user: res.data.user
+          player: res.data.player
         });
       });
     }
   }, {
-    key: "addUser",
-    value: function addUser(user) {
+    key: "addPlayer",
+    value: function addPlayer(player) {
       this.setState({
-        players: [].concat(_toConsumableArray(this.state.players), [user])
+        players: [].concat(_toConsumableArray(this.state.players), [player])
       });
     }
   }, {
-    key: "removeUser",
-    value: function removeUser(user) {
+    key: "removePlayer",
+    value: function removePlayer(thePlayer) {
       this.setState({
-        players: this.state.players.filter(function (usr) {
-          return usr.id !== user.id;
+        players: this.state.players.filter(function (player) {
+          return player.id !== thePlayer.id;
         })
       });
     }
@@ -5885,10 +5885,10 @@ var Game = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_header_InfoPanel__WEBPACK_IMPORTED_MODULE_1__["default"], {
           players: this.state.players,
-          user: this.state.user
+          player: this.state.player
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_2__["default"], {
           messages: this.state.messages,
-          user: this.state.user
+          player: this.state.player
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ChatForm__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
       });
     }
@@ -5919,13 +5919,13 @@ __webpack_require__.r(__webpack_exports__);
 
 function Messages(_ref) {
   var messages = _ref.messages,
-      user = _ref.user;
+      player = _ref.player;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
     children: messages.map(function (message) {
       var playerId = message.user ? message.user.id : message.player_id;
       var playerName = message.user ? message.user.name : message.player_name;
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
-        children: [user.id === playerId ? "".concat(playerName, "(you): ") : "".concat(playerName, ": "), message.body]
+        children: [player.id === playerId ? "".concat(playerName, "(you): ") : "".concat(playerName, ": "), message.body]
       }, message.id);
     })
   });
@@ -6011,12 +6011,14 @@ __webpack_require__.r(__webpack_exports__);
 
 function InfoPanel(_ref) {
   var players = _ref.players,
-      user = _ref.user;
+      player = _ref.player;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     id: "info",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_RoleInfo__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_PlayerInfo__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_RoleInfo__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      player: player
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_PlayerInfo__WEBPACK_IMPORTED_MODULE_2__["default"], {
       players: players,
-      user: user
+      player: player
     })]
   });
 }
@@ -6042,9 +6044,9 @@ __webpack_require__.r(__webpack_exports__);
 
 function PlayerInfo(_ref) {
   var players = _ref.players,
-      user = _ref.user;
-  var thePlayer = players.find(function (player) {
-    return player.id === user.id;
+      player = _ref.player;
+  var thePlayer = players.find(function (plyr) {
+    return plyr.id === player.id;
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     id: "players",
@@ -6064,7 +6066,7 @@ function PlayerInfo(_ref) {
           children: player.name
         }, id);
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {})]
+    })]
   });
 }
 
@@ -6089,7 +6091,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function RoleInfo() {
+function RoleInfo(_ref) {
+  var player = _ref.player;
+  console.log("player", player);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     id: "roles",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {

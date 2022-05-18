@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Messages({ messages, user }) {
+export default function Messages({ messages, player }) {
     return (
         <ul>
             {messages.map((message) => {
@@ -12,7 +12,7 @@ export default function Messages({ messages, user }) {
                     : message.player_name;
                 return (
                     <li key={message.id}>
-                        {user.id === playerId
+                        {player.id === playerId
                             ? `${playerName}(you): `
                             : `${playerName}: `}
                         {message.body}

@@ -1,7 +1,7 @@
 import React from "react";
 
-function PlayerInfo({ players, user }) {
-    let thePlayer = players.find((player) => player.id === user.id);
+function PlayerInfo({ players, player }) {
+    let thePlayer = players.find((plyr) => plyr.id === player.id);
 
     return (
         <div id="players">
@@ -20,7 +20,6 @@ function PlayerInfo({ players, user }) {
                         <li key={id}>{player.name}</li>
                     ))}
             </ul>
-            <hr />
         </div>
     );
 }
