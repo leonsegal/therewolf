@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\PlayerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -41,7 +41,6 @@ Route::get("game", function () {
 
 Route::get("/messages", [MessageController::class, "index"]);
 Route::post("/message", [MessageController::class, "store"]);
-Route::get("/player", [UserController::class, "index"]);
-Route::get("/players", [UserController::class, "index"]);
+Route::get("/player", [PlayerController::class, "index"]);
 
 require __DIR__ . "/auth.php";

@@ -1,6 +1,6 @@
 import React from "react";
 
-function PlayerInfo({ players, player }) {
+export default function PlayerInfo({ players, player }) {
     let thePlayer = players.find((plyr) => plyr.id === player.id);
 
     return (
@@ -23,5 +23,3 @@ function PlayerInfo({ players, player }) {
         </div>
     );
 }
-
-export default PlayerInfo;

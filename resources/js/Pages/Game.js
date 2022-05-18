@@ -2,6 +2,7 @@ import React from "react";
 import InfoPanel from "./header/InfoPanel";
 import Messages from "./Messages";
 import ChatForm from "./ChatForm";
+import log from "tailwindcss/lib/util/log";
 
 export default class Game extends React.Component {
     constructor(props) {
@@ -14,6 +15,7 @@ export default class Game extends React.Component {
         };
 
         this.state = {
+            hasGameStarted: false,
             messages: [],
             player: {
                 name: "",
@@ -29,11 +31,20 @@ export default class Game extends React.Component {
 
         Echo.join(`chat.${this.roomIds.main}`)
             .here((players) => this.setState({ players }))
-            .joining((player) => this.addPlayer(player))
+
+            .joining((player) => {
+                this.addPlayer(player);
+                if (this.state.players.length > 2) {
+                    this.startGame();
+                }
+            })
+
             .leaving((player) => this.removePlayer(player))
+
             .listen("MessageSent", (e) =>
                 this.setState({ messages: [...this.state.messages, e.message] })
             )
+
             .error((error) => console.error(error));
     }
 
@@ -78,5 +89,17 @@ export default class Game extends React.Component {
                 <ChatForm />
             </>
         );
+    }
+
+    startGame() {
+        this.selectRoles();
+        this.setState({ hasGameStarted: true });
+    }
+
+    selectRoles() {
+        axios
+            .post("/select-roles", { players: this.state.players, roomId: 0 })
+            .then((res) => console.log(res)) // should contain role for this player only (possibly not all in case it gets intercepted)
+            .catch(console.error);
     }
 }

@@ -1,16 +1,21 @@
 import React from "react";
 
-function RoleInfo({ player }) {
-    console.log("player", player);
+export default function RoleInfo({ roles, player }) {
+    let theRole = roles.find((role) => role.id === player.role_id);
 
     return (
         <div id="roles">
             <span>
                 <strong>Roles:</strong>
             </span>
-            <ul></ul>
+            <ul>
+                <li>(you){theRole}</li>
+                {roles
+                    .filter((role) => role.id !== player.role_id)
+                    .map((role, id) => (
+                        <li key={id}>{role.name}</li>
+                    ))}
+            </ul>
         </div>
     );
 }
-
-export default RoleInfo;

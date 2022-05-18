@@ -5748,7 +5748,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _header_InfoPanel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header/InfoPanel */ "./resources/js/Pages/header/InfoPanel.js");
 /* harmony import */ var _Messages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Messages */ "./resources/js/Pages/Messages.js");
 /* harmony import */ var _ChatForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ChatForm */ "./resources/js/Pages/ChatForm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var tailwindcss_lib_util_log__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tailwindcss/lib/util/log */ "./node_modules/tailwindcss/lib/util/log.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -5791,6 +5792,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Game = /*#__PURE__*/function (_React$Component) {
   _inherits(Game, _React$Component);
 
@@ -5808,6 +5810,7 @@ var Game = /*#__PURE__*/function (_React$Component) {
       dead: 2
     };
     _this.state = {
+      hasGameStarted: false,
       messages: [],
       player: {
         name: "",
@@ -5830,7 +5833,11 @@ var Game = /*#__PURE__*/function (_React$Component) {
           players: players
         });
       }).joining(function (player) {
-        return _this2.addPlayer(player);
+        _this2.addPlayer(player);
+
+        if (_this2.state.players.length > 2) {
+          _this2.startGame();
+        }
       }).leaving(function (player) {
         return _this2.removePlayer(player);
       }).listen("MessageSent", function (e) {
@@ -5882,15 +5889,34 @@ var Game = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_header_InfoPanel__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_header_InfoPanel__WEBPACK_IMPORTED_MODULE_1__["default"], {
           players: this.state.players,
           player: this.state.player
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_2__["default"], {
           messages: this.state.messages,
           player: this.state.player
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ChatForm__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ChatForm__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
       });
+    }
+  }, {
+    key: "startGame",
+    value: function startGame() {
+      this.selectRoles();
+      this.setState({
+        hasGameStarted: true
+      });
+    }
+  }, {
+    key: "selectRoles",
+    value: function selectRoles() {
+      axios.post("/select-roles", {
+        players: this.state.players,
+        roomId: 0
+      }).then(function (res) {
+        return console.log(res);
+      }) // should contain role for this player only (possibly not all in case it gets intercepted)
+      ["catch"](console.error);
     }
   }]);
 
@@ -6015,7 +6041,8 @@ function InfoPanel(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     id: "info",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_RoleInfo__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      player: player
+      player: player,
+      roles: []
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_PlayerInfo__WEBPACK_IMPORTED_MODULE_2__["default"], {
       players: players,
       player: player
@@ -6034,11 +6061,10 @@ function InfoPanel(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (/* binding */ PlayerInfo)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
 
 
 
@@ -6070,8 +6096,6 @@ function PlayerInfo(_ref) {
   });
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerInfo);
-
 /***/ }),
 
 /***/ "./resources/js/Pages/header/RoleInfo.js":
@@ -6083,28 +6107,38 @@ function PlayerInfo(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (/* binding */ RoleInfo)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
-
 function RoleInfo(_ref) {
-  var player = _ref.player;
-  console.log("player", player);
+  var roles = _ref.roles,
+      player = _ref.player;
+  var theRole = roles.find(function (role) {
+    return role.id === player.role_id;
+  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     id: "roles",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
         children: "Roles:"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
+        children: ["(you)", theRole]
+      }), roles.filter(function (role) {
+        return role.id !== player.role_id;
+      }).map(function (role, id) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+          children: role.name
+        }, id);
+      })]
+    })]
   });
 }
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RoleInfo);
 
 /***/ }),
 
@@ -28714,6 +28748,20 @@ function arrObjKeys(obj, inspect) {
     }
     return xs;
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/picocolors/picocolors.browser.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/picocolors/picocolors.browser.js ***!
+  \*******************************************************/
+/***/ ((module) => {
+
+var x=String;
+var create=function() {return {isColorSupported:false,reset:x,bold:x,dim:x,italic:x,underline:x,inverse:x,hidden:x,strikethrough:x,black:x,red:x,green:x,yellow:x,blue:x,magenta:x,cyan:x,white:x,gray:x,bgBlack:x,bgRed:x,bgGreen:x,bgYellow:x,bgBlue:x,bgMagenta:x,bgCyan:x,bgWhite:x}};
+module.exports=create();
+module.exports.createColors = create;
 
 
 /***/ }),
@@ -65743,6 +65791,69 @@ module.exports = function getSideChannel() {
 	};
 	return channel;
 };
+
+
+/***/ }),
+
+/***/ "./node_modules/tailwindcss/lib/util/log.js":
+/*!**************************************************!*\
+  !*** ./node_modules/tailwindcss/lib/util/log.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+exports.dim = dim;
+exports["default"] = void 0;
+var _picocolors = _interopRequireDefault(__webpack_require__(/*! picocolors */ "./node_modules/picocolors/picocolors.browser.js"));
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+        default: obj
+    };
+}
+let alreadyShown = new Set();
+function log(type, messages, key) {
+    if (process.env.JEST_WORKER_ID !== undefined) return;
+    if (key && alreadyShown.has(key)) return;
+    if (key) alreadyShown.add(key);
+    console.warn("");
+    messages.forEach((message)=>console.warn(type, "-", message)
+    );
+}
+function dim(input) {
+    return _picocolors.default.dim(input);
+}
+var _default = {
+    info (key, messages) {
+        log(_picocolors.default.bold(_picocolors.default.cyan("info")), ...Array.isArray(key) ? [
+            key
+        ] : [
+            messages,
+            key
+        ]);
+    },
+    warn (key, messages) {
+        log(_picocolors.default.bold(_picocolors.default.yellow("warn")), ...Array.isArray(key) ? [
+            key
+        ] : [
+            messages,
+            key
+        ]);
+    },
+    risk (key, messages) {
+        log(_picocolors.default.bold(_picocolors.default.magenta("risk")), ...Array.isArray(key) ? [
+            key
+        ] : [
+            messages,
+            key
+        ]);
+    }
+};
+exports["default"] = _default;
 
 
 /***/ }),
