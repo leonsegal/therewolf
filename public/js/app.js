@@ -5748,8 +5748,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _header_InfoPanel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header/InfoPanel */ "./resources/js/Pages/header/InfoPanel.js");
 /* harmony import */ var _Messages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Messages */ "./resources/js/Pages/Messages.js");
 /* harmony import */ var _ChatForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ChatForm */ "./resources/js/Pages/ChatForm.js");
-/* harmony import */ var tailwindcss_lib_util_log__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tailwindcss/lib/util/log */ "./node_modules/tailwindcss/lib/util/log.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -5783,7 +5782,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 
 
 
@@ -5889,14 +5887,14 @@ var Game = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_header_InfoPanel__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          players: this.state.players,
-          player: this.state.player
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          messages: this.state.messages,
-          player: this.state.player
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ChatForm__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_header_InfoPanel__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          player: this.state.player,
+          players: this.state.players
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          player: this.state.player,
+          messages: this.state.messages
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ChatForm__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
       });
     }
   }, {
@@ -5944,12 +5942,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Messages(_ref) {
-  var messages = _ref.messages,
-      player = _ref.player;
+  var player = _ref.player,
+      messages = _ref.messages;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
     children: messages.map(function (message) {
-      var playerId = message.user ? message.user.id : message.player_id;
-      var playerName = message.user ? message.user.name : message.player_name;
+      var playerId = message.player ? message.player.id : message.player_id;
+      var playerName = message.player ? message.player.name : message.player_name;
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
         children: [player.id === playerId ? "".concat(playerName, "(you): ") : "".concat(playerName, ": "), message.body]
       }, message.id);
@@ -5979,7 +5977,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Welcome(props) {
-  var user = props.auth.user;
+  var player = props.auth.player;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Head, {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("title", {
@@ -5989,7 +5987,7 @@ function Welcome(props) {
       className: "relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "fixed top-0 right-0 px-6 py-4 sm:block",
-        children: user ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Link, {
+        children: player ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Link, {
           href: route("dashboard"),
           className: "text-sm text-gray-700 underline",
           children: "Dashboard"
@@ -6036,8 +6034,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function InfoPanel(_ref) {
-  var players = _ref.players,
-      player = _ref.player;
+  var player = _ref.player,
+      players = _ref.players;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     id: "info",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_RoleInfo__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -28748,20 +28746,6 @@ function arrObjKeys(obj, inspect) {
     }
     return xs;
 }
-
-
-/***/ }),
-
-/***/ "./node_modules/picocolors/picocolors.browser.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/picocolors/picocolors.browser.js ***!
-  \*******************************************************/
-/***/ ((module) => {
-
-var x=String;
-var create=function() {return {isColorSupported:false,reset:x,bold:x,dim:x,italic:x,underline:x,inverse:x,hidden:x,strikethrough:x,black:x,red:x,green:x,yellow:x,blue:x,magenta:x,cyan:x,white:x,gray:x,bgBlack:x,bgRed:x,bgGreen:x,bgYellow:x,bgBlue:x,bgMagenta:x,bgCyan:x,bgWhite:x}};
-module.exports=create();
-module.exports.createColors = create;
 
 
 /***/ }),
@@ -65791,69 +65775,6 @@ module.exports = function getSideChannel() {
 	};
 	return channel;
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/tailwindcss/lib/util/log.js":
-/*!**************************************************!*\
-  !*** ./node_modules/tailwindcss/lib/util/log.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-exports.dim = dim;
-exports["default"] = void 0;
-var _picocolors = _interopRequireDefault(__webpack_require__(/*! picocolors */ "./node_modules/picocolors/picocolors.browser.js"));
-function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-        default: obj
-    };
-}
-let alreadyShown = new Set();
-function log(type, messages, key) {
-    if (process.env.JEST_WORKER_ID !== undefined) return;
-    if (key && alreadyShown.has(key)) return;
-    if (key) alreadyShown.add(key);
-    console.warn("");
-    messages.forEach((message)=>console.warn(type, "-", message)
-    );
-}
-function dim(input) {
-    return _picocolors.default.dim(input);
-}
-var _default = {
-    info (key, messages) {
-        log(_picocolors.default.bold(_picocolors.default.cyan("info")), ...Array.isArray(key) ? [
-            key
-        ] : [
-            messages,
-            key
-        ]);
-    },
-    warn (key, messages) {
-        log(_picocolors.default.bold(_picocolors.default.yellow("warn")), ...Array.isArray(key) ? [
-            key
-        ] : [
-            messages,
-            key
-        ]);
-    },
-    risk (key, messages) {
-        log(_picocolors.default.bold(_picocolors.default.magenta("risk")), ...Array.isArray(key) ? [
-            key
-        ] : [
-            messages,
-            key
-        ]);
-    }
-};
-exports["default"] = _default;
 
 
 /***/ }),

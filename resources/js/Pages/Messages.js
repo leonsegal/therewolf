@@ -1,14 +1,14 @@
 import React from "react";
 
-export default function Messages({ messages, player }) {
+export default function Messages({ player, messages }) {
     return (
         <ul>
             {messages.map((message) => {
-                let playerId = message.user
-                    ? message.user.id
+                let playerId = message.player
+                    ? message.player.id
                     : message.player_id;
-                let playerName = message.user
-                    ? message.user.name
+                let playerName = message.player
+                    ? message.player.name
                     : message.player_name;
                 return (
                     <li key={message.id}>

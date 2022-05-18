@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\FooBar;
-use App\Models\User;
+use App\Models\Player;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class FooBarPolicy
@@ -13,10 +13,10 @@ class FooBarPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Player  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(Player $user)
     {
         //
     }
@@ -24,11 +24,11 @@ class FooBarPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Player  $user
      * @param  \App\Models\FooBar  $fooBar
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, FooBar $fooBar)
+    public function view(Player $user, FooBar $fooBar)
     {
         //
     }
@@ -36,10 +36,10 @@ class FooBarPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Player  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(Player $user)
     {
         //
     }
@@ -47,11 +47,11 @@ class FooBarPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Player  $user
      * @param  \App\Models\FooBar  $fooBar
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, FooBar $fooBar)
+    public function update(Player $user, FooBar $fooBar)
     {
         //
     }
@@ -59,11 +59,11 @@ class FooBarPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Player  $user
      * @param  \App\Models\FooBar  $fooBar
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, FooBar $fooBar)
+    public function delete(Player $user, FooBar $fooBar)
     {
         //
     }
@@ -71,11 +71,11 @@ class FooBarPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Player  $user
      * @param  \App\Models\FooBar  $fooBar
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, FooBar $fooBar)
+    public function restore(Player $user, FooBar $fooBar)
     {
         //
     }
@@ -83,11 +83,11 @@ class FooBarPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Player  $user
      * @param  \App\Models\FooBar  $fooBar
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, FooBar $fooBar)
+    public function forceDelete(Player $user, FooBar $fooBar)
     {
         //
     }

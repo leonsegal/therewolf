@@ -11,8 +11,8 @@ class Message extends Model
 
     protected $fillable = ["body", "room_id"];
 
-    public function user()
+    public function player()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Player::class);
     }
 }

@@ -2,7 +2,6 @@ import React from "react";
 import InfoPanel from "./header/InfoPanel";
 import Messages from "./Messages";
 import ChatForm from "./ChatForm";
-import log from "tailwindcss/lib/util/log";
 
 export default class Game extends React.Component {
     constructor(props) {
@@ -77,13 +76,13 @@ export default class Game extends React.Component {
         return (
             <>
                 <InfoPanel
-                    players={this.state.players}
                     player={this.state.player}
+                    players={this.state.players}
                 />
 
                 <Messages
-                    messages={this.state.messages}
                     player={this.state.player}
+                    messages={this.state.messages}
                 />
 
                 <ChatForm />
