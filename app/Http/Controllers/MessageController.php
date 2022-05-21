@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageSent;
-use App\Models\Message;
+use App\Models\Game;
 
 class MessageController extends Controller
 {
@@ -14,9 +14,12 @@ class MessageController extends Controller
 
     public function index()
     {
-        // todo: get messages for current game only
+        $game = Game::firstOrCreate([
+            "is_active" => true,
+            "has_started" => false,
+        ]);
         return [
-            "messages" => Message::all()->map(
+            "messages" => $game->messages->map(
                 fn($message) => [
                     "id" => $message->id,
                     "body" => $message->body,

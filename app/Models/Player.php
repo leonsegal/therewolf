@@ -39,6 +39,11 @@ class Player extends Authenticatable
         return $this->hasMany(Message::class);
     }
 
+    public function game()
+    {
+        return $this->belongsTo(Game::class);
+    }
+
     public function canJoinRoom($roomId): bool
     {
         // all can join room 0 (main)

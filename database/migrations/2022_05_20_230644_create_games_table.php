@@ -12,18 +12,15 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create("players", function (Blueprint $table) {
+        Schema::create("games", function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->string("email")->unique();
-            $table->timestamp("email_verified_at")->nullable();
-            $table->string("password");
-            $table
-                ->integer("role_id")
-                ->unsigned()
-                ->default(0);
-            $table->rememberToken();
+            $table->boolean("is_active")->default(true);
+            $table->boolean("has_started")->default(false);
             $table->timestamps();
+        });
+
+        Schema::table("games", function (Blueprint $table) {
+            $table->foreignId("player_id")->constrained();
         });
     }
 
@@ -34,6 +31,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists("players");
+        Schema::dropIfExists("games");
     }
 };

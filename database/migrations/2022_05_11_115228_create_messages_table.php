@@ -15,9 +15,7 @@ return new class extends Migration {
         Schema::create("messages", function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer("player_id")->unsigned();
             $table->text("body");
-            $table->integer("room_id")->unsigned();
         });
     }
 

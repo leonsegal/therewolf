@@ -15,4 +15,9 @@ class Message extends Model
     {
         return $this->belongsTo(Player::class);
     }
+
+    public function game()
+    {
+        return $this->belongsTo(Game::class);
+    }
 }
