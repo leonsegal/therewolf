@@ -17,6 +17,14 @@ return new class extends Migration {
             $table->timestamps();
             $table->text("body");
         });
+
+        Schema::table("messages", function (Blueprint $table) {
+            $table->foreignId("game_id")->constrained();
+        });
+
+        Schema::table("messages", function (Blueprint $table) {
+            $table->foreignId("player_id")->constrained();
+        });
     }
 
     /**

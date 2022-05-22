@@ -21,10 +21,6 @@ return new class extends Migration {
             $table->rememberToken();
             $table->timestamps();
         });
-
-        Schema::table("players", function (Blueprint $table) {
-            $table->foreignId("message_id")->constrained();
-        });
     }
 
     /**

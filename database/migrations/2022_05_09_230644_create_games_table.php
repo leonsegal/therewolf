@@ -18,10 +18,6 @@ return new class extends Migration {
             $table->boolean("has_started")->default(false);
             $table->timestamps();
         });
-
-        Schema::table("games", function (Blueprint $table) {
-            $table->foreignId("player_id")->constrained();
-        });
     }
 
     /**
