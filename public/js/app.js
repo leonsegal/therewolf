@@ -5902,7 +5902,7 @@ var Game = /*#__PURE__*/function (_React$Component) {
           player: this.state.player,
           players: this.state.players,
           roles: this.roles
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_2__["default"], {
           player: this.state.player,
           messages: this.state.messages
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ChatForm__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
@@ -6053,7 +6053,7 @@ function InfoPanel(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_RoleInfo__WEBPACK_IMPORTED_MODULE_1__["default"], {
       player: player,
       roles: roles
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_PlayerInfo__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_PlayerInfo__WEBPACK_IMPORTED_MODULE_2__["default"], {
       players: players,
       player: player
     })]

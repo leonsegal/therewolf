@@ -87,6 +87,8 @@ export default class Game extends React.Component {
                     roles={this.roles}
                 />
 
+                <hr />
+
                 <Messages
                     player={this.state.player}
                     messages={this.state.messages}
