@@ -5807,6 +5807,16 @@ var Game = /*#__PURE__*/function (_React$Component) {
       werewolf: 1,
       dead: 2
     };
+    _this.roles = [{
+      id: 0,
+      name: "Werewolf"
+    }, {
+      id: 1,
+      name: "Seer"
+    }, {
+      id: 2,
+      name: "Villager"
+    }];
     _this.state = {
       hasGameStarted: false,
       messages: [],
@@ -5890,7 +5900,8 @@ var Game = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_header_InfoPanel__WEBPACK_IMPORTED_MODULE_1__["default"], {
           player: this.state.player,
-          players: this.state.players
+          players: this.state.players,
+          roles: this.roles
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_2__["default"], {
           player: this.state.player,
           messages: this.state.messages
@@ -6035,12 +6046,13 @@ __webpack_require__.r(__webpack_exports__);
 
 function InfoPanel(_ref) {
   var player = _ref.player,
-      players = _ref.players;
+      players = _ref.players,
+      roles = _ref.roles;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     id: "info",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_RoleInfo__WEBPACK_IMPORTED_MODULE_1__["default"], {
       player: player,
-      roles: []
+      roles: roles
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_PlayerInfo__WEBPACK_IMPORTED_MODULE_2__["default"], {
       players: players,
       player: player
@@ -6115,25 +6127,16 @@ __webpack_require__.r(__webpack_exports__);
 function RoleInfo(_ref) {
   var roles = _ref.roles,
       player = _ref.player;
-  var theRole = roles.find(function (role) {
-    return role.id === player.role_id;
-  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     id: "roles",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
-        children: "Roles:"
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
-        children: ["(you)", theRole]
-      }), roles.filter(function (role) {
-        return role.id !== player.role_id;
-      }).map(function (role, id) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
-          children: role.name
-        }, id);
-      })]
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
+      children: "Roles: "
+    }), roles.filter(function (role) {
+      return role.id !== player.role_id;
+    }).map(function (role, id) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+        children: [role.name, " "]
+      }, id);
     })]
   });
 }

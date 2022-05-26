@@ -13,6 +13,12 @@ export default class Game extends React.Component {
             dead: 2,
         };
 
+        this.roles = [
+            { id: 0, name: "Werewolf" },
+            { id: 1, name: "Seer" },
+            { id: 2, name: "Villager" },
+        ];
+
         this.state = {
             hasGameStarted: false,
             messages: [],
@@ -78,6 +84,7 @@ export default class Game extends React.Component {
                 <InfoPanel
                     player={this.state.player}
                     players={this.state.players}
+                    roles={this.roles}
                 />
 
                 <Messages
