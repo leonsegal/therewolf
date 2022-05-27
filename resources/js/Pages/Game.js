@@ -82,8 +82,8 @@ export default class Game extends React.Component {
         return (
             <>
                 <InfoPanel
-                    player={this.state.player}
                     players={this.state.players}
+                    player={this.state.player}
                     roles={this.roles}
                 />
 
