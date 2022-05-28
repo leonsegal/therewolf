@@ -34,7 +34,7 @@ Route::get("game", fn() => Inertia::render("Game"))
     ->middleware(["auth", "verified"])
     ->name("game");
 
-Route::get("/messages", [MessageController::class, "index"])
+Route::post("/messages", [MessageController::class, "index"])
     ->middleware(["auth", "verified"])
     ->name("messages.index");
 

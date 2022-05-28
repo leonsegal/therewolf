@@ -5540,15 +5540,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function ChatForm() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
-      message = _useState2[0],
-      setMessage = _useState2[1];
+      messageBody = _useState2[0],
+      setMessageBody = _useState2[1];
+
+  var roomId = 0;
 
   var sendMessage = function sendMessage(e) {
     e.preventDefault();
     axios.post("/message", {
-      body: message,
-      roomId: 0
-    }).then(setMessage(""))["catch"](console.error);
+      messageBody: messageBody,
+      roomId: roomId
+    }).then(setMessageBody(""))["catch"](console.error);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
@@ -5561,9 +5563,9 @@ function ChatForm() {
       id: "input",
       type: "text",
       name: "message",
-      value: message,
+      value: messageBody,
       onChange: function onChange(e) {
-        return setMessage(e.target.value);
+        return setMessageBody(e.target.value);
       },
       placeholder: "Type your message here...",
       autoFocus: true,
@@ -5835,7 +5837,8 @@ var Game = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.getMessages();
-      this.getPlayer();
+      this.getPlayer(); // handle players' activity
+
       Echo.join("chat.".concat(this.roomIds.main)).here(function (players) {
         return _this2.setState({
           players: players
@@ -5861,7 +5864,9 @@ var Game = /*#__PURE__*/function (_React$Component) {
     value: function getMessages() {
       var _this3 = this;
 
-      axios.get("/messages").then(function (res) {
+      axios.post("/messages", {
+        roomId: this.roomIds.main
+      }).then(function (res) {
         return _this3.setState({
           messages: res.data.messages
         });
@@ -5899,8 +5904,8 @@ var Game = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_header_InfoPanel__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          player: this.state.player,
           players: this.state.players,
+          player: this.state.player,
           roles: this.roles
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Messages__WEBPACK_IMPORTED_MODULE_2__["default"], {
           player: this.state.player,
@@ -5924,7 +5929,7 @@ var Game = /*#__PURE__*/function (_React$Component) {
         roomId: 0
       }).then(function (res) {
         return console.log(res);
-      }) // should contain role for this player only (possibly not all in case it gets intercepted)
+      }) // should contain role for this player only (not all in case it gets intercepted)
       ["catch"](console.error);
     }
   }]);
@@ -5955,10 +5960,14 @@ __webpack_require__.r(__webpack_exports__);
 function Messages(_ref) {
   var player = _ref.player,
       messages = _ref.messages;
+  console.clear(); // deleteme
+
+  console.log(messages); // deleteme
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
     children: messages.map(function (message) {
-      var playerId = message.player ? message.player.id : message.player_id;
-      var playerName = message.player ? message.player.name : message.player_name;
+      var playerId = message.player_id;
+      var playerName = message.player_name;
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
         children: [player.id === playerId ? "".concat(playerName, "(you): ") : "".concat(playerName, ": "), message.body]
       }, message.id);
@@ -6045,8 +6054,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function InfoPanel(_ref) {
-  var player = _ref.player,
-      players = _ref.players,
+  var players = _ref.players,
+      player = _ref.player,
       roles = _ref.roles;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     id: "info",
@@ -6127,17 +6136,17 @@ __webpack_require__.r(__webpack_exports__);
 function RoleInfo(_ref) {
   var roles = _ref.roles,
       player = _ref.player;
+  var otherRoles = roles.filter(function (role) {
+    return role.id !== player.role_id;
+  });
+  var roleNames = otherRoles.map(function (role) {
+    return role.name;
+  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     id: "roles",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
       children: "Roles: "
-    }), roles.filter(function (role) {
-      return role.id !== player.role_id;
-    }).map(function (role, id) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-        children: [role.name, " "]
-      }, id);
-    })]
+    }), roleNames.join(" - ")]
   });
 }
 

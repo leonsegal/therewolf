@@ -14,12 +14,17 @@ return new class extends Migration {
     {
         Schema::create("messages", function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->text("body");
+            $table->integer("room_id")->unsigned();
+            $table->text("player_name")->nullable();
+            $table->timestamps();
         });
 
         Schema::table("messages", function (Blueprint $table) {
-            $table->foreignId("game_id")->constrained();
+            $table
+                ->foreignId("game_id")
+                ->nullable()
+                ->constrained();
         });
 
         Schema::table("messages", function (Blueprint $table) {

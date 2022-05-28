@@ -18,8 +18,10 @@ class MessageController extends Controller
             "is_active" => true,
             "has_started" => false,
         ]);
-        return [
-            "messages" => $game->messages->map(
+
+        $messages = [];
+        if ($game->messages) {
+            $messages = $game->messages->map(
                 fn($message) => [
                     "id" => $message->id,
                     "body" => $message->body,
@@ -27,7 +29,11 @@ class MessageController extends Controller
                     "player_id" => $message->user->id,
                     "created_at" => $message->created_at,
                 ]
-            ),
+            );
+        }
+
+        return [
+            "messages" => $messages,
             "user" => auth()->user(),
         ];
     }
@@ -35,13 +41,16 @@ class MessageController extends Controller
     public function store()
     {
         $player = auth()->user();
+        $game = Game::where("is_active", 1)->first();
         $message = $player->messages()->create([
-            "body" => request("body"),
+            "body" => request("messageBody"),
             "room_id" => request("roomId"),
+            "game_id" => $game->id,
+            "player_name" => $player->name,
         ]);
 
         broadcast(new MessageSent($message));
 
-        return ["status" => "Message sent"];
+        return ["status" => "Message sent", "message" => $message];
     }
 }

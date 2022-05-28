@@ -34,6 +34,7 @@ export default class Game extends React.Component {
         this.getMessages();
         this.getPlayer();
 
+        // handle players' activity
         Echo.join(`chat.${this.roomIds.main}`)
             .here((players) => this.setState({ players }))
 
@@ -55,7 +56,9 @@ export default class Game extends React.Component {
 
     getMessages() {
         axios
-            .get("/messages")
+            .post("/messages", {
+                roomId: this.roomIds.main,
+            })
             .then((res) => this.setState({ messages: res.data.messages }))
             .catch(console.error);
     }
@@ -107,7 +110,7 @@ export default class Game extends React.Component {
     selectRoles() {
         axios
             .post("/select-roles", { players: this.state.players, roomId: 0 })
-            .then((res) => console.log(res)) // should contain role for this player only (possibly not all in case it gets intercepted)
+            .then((res) => console.log(res)) // should contain role for this player only (not all in case it gets intercepted)
             .catch(console.error);
     }
 }
