@@ -9,7 +9,7 @@ class Game extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["message_id"];
+    protected $fillable = ["is_active", "has_started"];
 
     public function players()
     {

@@ -56,9 +56,7 @@ export default class Game extends React.Component {
 
     getMessages() {
         axios
-            .post("/messages", {
-                roomId: this.roomIds.main,
-            })
+            .post("/messages", { roomId: this.roomIds.main })
             .then((res) => this.setState({ messages: res.data.messages }))
             .catch(console.error);
     }

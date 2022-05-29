@@ -1,10 +1,8 @@
 import React from "react";
 
 export default function Messages({ player, messages }) {
-    console.clear(); // deleteme
-    console.log(messages); // deleteme
     return (
-        <ul>
+        <ul className="overflow-hidden h-4/6 absolute inset-x-0 left-5 bottom-20">
             {messages.map((message) => {
                 let playerId = message.player_id;
                 let playerName = message.player_name;

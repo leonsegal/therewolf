@@ -21,10 +21,7 @@ return new class extends Migration {
         });
 
         Schema::table("messages", function (Blueprint $table) {
-            $table
-                ->foreignId("game_id")
-                ->nullable()
-                ->constrained();
+            $table->foreignId("game_id")->constrained();
         });
 
         Schema::table("messages", function (Blueprint $table) {

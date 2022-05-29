@@ -19,6 +19,8 @@ class MessageController extends Controller
             "has_started" => false,
         ]);
 
+        dd($game);
+
         $messages = [];
         if ($game->messages) {
             $messages = $game->messages->map(

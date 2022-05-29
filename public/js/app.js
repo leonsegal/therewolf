@@ -5550,10 +5550,12 @@ function ChatForm() {
     axios.post("/message", {
       messageBody: messageBody,
       roomId: roomId
-    }).then(setMessageBody(""))["catch"](console.error);
+    }) //  might need player and game info
+    .then(setMessageBody(""))["catch"](console.error);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+    className: "absolute inset-x-0 bottom-5 left-5",
     method: "POST",
     id: "form",
     onSubmit: function onSubmit(e) {
@@ -5960,11 +5962,8 @@ __webpack_require__.r(__webpack_exports__);
 function Messages(_ref) {
   var player = _ref.player,
       messages = _ref.messages;
-  console.clear(); // deleteme
-
-  console.log(messages); // deleteme
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
+    className: "overflow-hidden h-4/6 absolute inset-x-0 left-5 bottom-20",
     children: messages.map(function (message) {
       var playerId = message.player_id;
       var playerName = message.player_name;
@@ -6094,23 +6093,24 @@ function PlayerInfo(_ref) {
     return plyr.id === player.id;
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "m-2",
     id: "players",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
         children: "Players:"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
-      children: [thePlayer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
-        children: [thePlayer.name, " (you)"]
-      }) : null, players.filter(function (player) {
-        if (thePlayer) {
-          return thePlayer.id !== player.id;
-        }
-      }).map(function (player, id) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
-          children: player.name
-        }, id);
-      })]
+    }), thePlayer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+      className: "bg-red-400 text-white m-2 p-2",
+      children: [thePlayer.name, " (you)"]
+    }) : null, players.filter(function (player) {
+      if (thePlayer) {
+        return thePlayer.id !== player.id;
+      }
+    }).map(function (player, id) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        className: "bg-blue-400 text-white m-2 p-2",
+        children: player.name
+      }, id);
     })]
   });
 }
@@ -6139,14 +6139,17 @@ function RoleInfo(_ref) {
   var otherRoles = roles.filter(function (role) {
     return role.id !== player.role_id;
   });
-  var roleNames = otherRoles.map(function (role) {
-    return role.name;
-  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "m-2",
     id: "roles",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
       children: "Roles: "
-    }), roleNames.join(" - ")]
+    }), otherRoles.map(function (role) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        className: "bg-blue-400 text-white m-2 p-2",
+        children: role.name
+      }, role.id);
+    })]
   });
 }
 
