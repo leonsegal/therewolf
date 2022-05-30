@@ -32,10 +32,7 @@ class MessageController extends Controller
             );
         }
 
-        return [
-            "messages" => $messages,
-            "user" => auth()->user(),
-        ];
+        return ["messages" => $messages];
     }
 
     public function store()
