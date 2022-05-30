@@ -19,16 +19,14 @@ class MessageController extends Controller
             "has_started" => false,
         ]);
 
-        dd($game);
-
         $messages = [];
         if ($game->messages) {
             $messages = $game->messages->map(
                 fn($message) => [
                     "id" => $message->id,
                     "body" => $message->body,
-                    "player_name" => $message->user->name,
-                    "player_id" => $message->user->id,
+                    "player_name" => $message->player_name,
+                    "player_id" => $message->player->id,
                     "created_at" => $message->created_at,
                 ]
             );
