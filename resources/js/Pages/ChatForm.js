@@ -30,7 +30,11 @@ export default function ChatForm() {
                 autoFocus={true}
                 autoComplete="off"
             />
-            <input type="submit" value="Send" />
+            <input
+                className="bg-green-400 text-white m-2 p-2"
+                type="submit"
+                value="Send"
+            />
         </form>
     );
 }

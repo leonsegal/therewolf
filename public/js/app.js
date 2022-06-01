@@ -4570,6 +4570,33 @@ function Label(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/Components/Message.js":
+/*!********************************************!*\
+  !*** ./resources/js/Components/Message.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Message)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function Message(_ref) {
+  var message = _ref.message,
+      player = _ref.player;
+  var isMessageFromUser = player.id === message.player_id;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
+    className: "p-2 rounded-2xl ".concat(isMessageFromUser ? "place-self-end bg-orange-100 rounded-bl-none" : "place-self-start bg-purple-100 rounded-br-none"),
+    children: [isMessageFromUser ? "you: " : "".concat(message.player_name, ": "), message.body]
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/Components/NavLink.js":
 /*!********************************************!*\
   !*** ./resources/js/Components/NavLink.js ***!
@@ -5573,6 +5600,7 @@ function ChatForm() {
       autoFocus: true,
       autoComplete: "off"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+      className: "bg-green-400 text-white m-2 p-2",
       type: "submit",
       value: "Send"
     })]
@@ -5794,7 +5822,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
 var Game = /*#__PURE__*/function (_React$Component) {
   _inherits(Game, _React$Component);
 
@@ -5904,7 +5931,8 @@ var Game = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "flex grid container mx-auto",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_header_InfoPanel__WEBPACK_IMPORTED_MODULE_1__["default"], {
           players: this.state.players,
           player: this.state.player,
@@ -5955,21 +5983,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Messages)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Components_Message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Components/Message */ "./resources/js/Components/Message.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
 function Messages(_ref) {
   var player = _ref.player,
       messages = _ref.messages;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
-    className: "overflow-hidden h-4/6 absolute inset-x-0 left-5 bottom-20",
-    children: messages.map(function (message) {
-      var playerId = message.player_id;
-      var playerName = message.player_name;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
-        children: [player.id === playerId ? "".concat(playerName, "(you): ") : "".concat(playerName, ": "), message.body]
-      }, message.id);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("ul", {
+    className: "space-y-2 fixed inset-x-0 bottom-30 max-h-3 scroll-hidden left-0 grid grid-cols-1",
+    children: messages && messages.map(function (message, key) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Components_Message__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        message: message,
+        player: player
+      }, key);
     })
   });
 }

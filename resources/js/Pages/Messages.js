@@ -1,20 +1,13 @@
 import React from "react";
+import Message from "../Components/Message";
 
 export default function Messages({ player, messages }) {
     return (
-        <ul className="overflow-hidden h-4/6 absolute inset-x-0 left-5 bottom-20">
-            {messages.map((message) => {
-                let playerId = message.player_id;
-                let playerName = message.player_name;
-                return (
-                    <li key={message.id}>
-                        {player.id === playerId
-                            ? `${playerName}(you): `
-                            : `${playerName}: `}
-                        {message.body}
-                    </li>
-                );
-            })}
+        <ul className="space-y-2 fixed inset-x-0 bottom-30 max-h-3 scroll-hidden left-0 grid grid-cols-1">
+            {messages &&
+                messages.map((message, key) => (
+                    <Message key={key} message={message} player={player} />
+                ))}
         </ul>
     );
 }

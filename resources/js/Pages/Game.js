@@ -81,7 +81,7 @@ export default class Game extends React.Component {
 
     render() {
         return (
-            <>
+            <div className="flex grid container mx-auto">
                 <InfoPanel
                     players={this.state.players}
                     player={this.state.player}
@@ -96,7 +96,7 @@ export default class Game extends React.Component {
                 />
 
                 <ChatForm />
-            </>
+            </div>
         );
     }
 
